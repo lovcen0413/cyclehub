@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'pnpm'
       - name: Install dependencies
         run: |
-          cd client
-          npm install --legacy-peer-deps
-          npx expo install react-dom react-native-web -- --legacy-peer-deps
+          pnpm install
+          pnpm --filter client add react-dom react-native-web
       - name: Build Web
         run: |
           cd client
