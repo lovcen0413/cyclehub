@@ -16,17 +16,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install dependencies
+      - name: Install dependencies (clean)
         run: |
-          cd client
-          rm -rf node_modules package-lock.json
+          rm -rf node_modules client/node_modules package-lock.json client/package-lock.json
           npm install --legacy-peer-deps
-          npm install react-dom@18.3.1 react-native-web@~0.19.13 react-native-worklets expo-image-picker expo-linking --legacy-peer-deps
-      - name: Force react-native-screens v3
-        run: |
           cd client
-          npm install react-native-screens@3.35.0 --legacy-peer-deps --force
-          node -e "const v=require('react-native-screens/package.json').version; console.log('screens:',v); process.exit(v.startsWith('3')?0:1)"
+          npm install react-dom@18.3.1 react-native-web@~0.19.13 react-native-worklets expo-image-picker expo-linking --legacy-peer-deps
+      - name: Verify no v6 conflict
+        run: |
+          npm ls @react-navigation/core 2>/dev/null | grep -q "6\\." && echo "ERROR: v6 detected!" && exit 1 || echo "OK: only v7"
       - name: Build Web
         run: |
           cd client
@@ -36,7 +34,6 @@ jobs:
           cd client/dist
           sed -i 's|/_expo/|/cyclehub/_expo/|g' index.html
           echo "Fixed paths in index.html"
-          grep -o 'src="[^"]*"' index.html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
