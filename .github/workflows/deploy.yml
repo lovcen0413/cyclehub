@@ -19,8 +19,11 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: |
-          pnpm install
-          pnpm --filter client add react-dom react-native-web
+          pnpm install --no-frozen-lockfile
+      - name: Install web deps
+        run: |
+          cd client
+          npx expo install react-dom react-native-web
       - name: Build Web
         run: |
           cd client
