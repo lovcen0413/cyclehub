@@ -25,6 +25,12 @@ jobs:
         run: |
           cd client
           npx expo export --platform web
+      - name: Fix base path for GitHub Pages
+        run: |
+          cd client/dist
+          sed -i 's|/_expo/|/cyclehub/_expo/|g' index.html
+          echo "Fixed paths in index.html"
+          grep -o 'src="[^"]*"' index.html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
