@@ -21,6 +21,7 @@ jobs:
           cd client
           npm install --legacy-peer-deps
           npm install react-dom@18.3.1 react-native-web@~0.19.13 react-native-worklets expo-image-picker expo-linking --legacy-peer-deps
+          npm install react-native-screens@~3.35.0 --legacy-peer-deps
       - name: Build Web
         run: |
           cd client
