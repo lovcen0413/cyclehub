@@ -1,0 +1,8 @@
+node_modules/
+.expo/
+dist/
+*.tar
+*.tar.gz
+apk-build/
+code/
+package-lock.json
