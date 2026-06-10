@@ -17,6 +17,7 @@ jobs:
         run: |
           cd client
           npm install --legacy-peer-deps
+          npx expo install react-dom react-native-web -- --legacy-peer-deps
       - name: Build Web
         run: |
           cd client
