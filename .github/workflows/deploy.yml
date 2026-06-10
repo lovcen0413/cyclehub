@@ -17,7 +17,7 @@ jobs:
         run: |
           cd client
           npm install --legacy-peer-deps
-          npm install react-dom@18.3.1 react-native-web@~0.19.13 --legacy-peer-deps
+          npm install react-dom@18.3.1 react-native-web@~0.19.13 react-native-worklets --legacy-peer-deps
       - name: Build Web
         run: |
           cd client
