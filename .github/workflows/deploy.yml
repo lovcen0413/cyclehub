@@ -16,11 +16,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install dependencies
+      - name: Install dependencies (Expo managed)
         run: |
           cd client
-          npm install --legacy-peer-deps
-          npm install react-dom@18.3.1 react-native-web@~0.19.13 react-native-worklets expo-image-picker expo-linking --legacy-peer-deps
+          npx expo install
+          npx expo install react-dom react-native-web
+      - name: Show installed versions
+        run: |
+          cd client
+          node -e "console.log('screens:', require('react-native-screens/package.json').version)"
+          node -e "console.log('nav native:', require('@react-navigation/native/package.json').version)"
+          node -e "console.log('nav stack:', require('@react-navigation/native-stack/package.json').version)"
       - name: Build Web
         run: |
           cd client
